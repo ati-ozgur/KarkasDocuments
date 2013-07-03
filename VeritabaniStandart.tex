@@ -12,6 +12,14 @@
 
 \maketitle
 
+\section{Kurulum Notları}
+Veritabanı kurulurken, SQL Server içinden Collation olarak Turkish\_CI\_AS 
+seçilmelidir. Turkish\_CI\_AS Sunucu coallationu olarak seçilmelidir. 
+Nchar unicode olarak değerleri tuttuğu için 2 katı yer kaplamakta ve daha yavaş çalışmaktadır. 
+Eğer veritabanında aynı anda iki dil bilgisi tutulmayacaksa, yani hem rusça hemde türkçe bilgi,
+yazi değerleri veri tabanında  varchar yada char olarak tutulmalıdır.
+
+
 \section{Şema Kavramı}
 
 
@@ -55,6 +63,22 @@ ayrı şemalarda tutulmaları daha yararlı olacaktır.
 Son olarak Ozluk bilgileri, Bordro ve insan kaynaklarının ihtiyaç duydukları ortak bilgileri taşıyacaktır.
 Burada bu bilgiler sadece insan kaynakları şeması yada bordro şeması yerine ikisinin ortak kullandığı
 bir şemada olması daha uygundur.
+Yani diğer bir deyişle; eğer bir tablo birden fazla modul tarafından kullanılıyor ise,
+bu ortaklığı belirtecek yeni bir şema gerekirse açılmalıdır. 
+Bu şema ismi eğer dışarıdan veri alınıyorsa bunu anlatan bir isim,
+eğer 2 modulün ortak noktası ise, bu ortak nokta olabilir.
+Sadece 2 modul tarafından kullanılacak bir tablo ORTAK şemasını eklenmemelidir.
+
+Ana modul şemalarından 10 taneden fazla tablo bulunması bu modulun buyuk olduğunu göstermektedir.
+Bu modul 2-3 ana modul olarak ayrılabilir. Örneğin personel için aşağıdaki gibi bir ayrım olabilir.
+\begin{itemize}
+\item PERSONEL
+\item PERSONEL\_IZIN
+\item PERSONEL\_HARCAMALAR
+\end{itemize}
+
+
+
 
 Her modul relationları, ilişkileri gösteren diagramlara sahip olmalıdır.
 \missingfigure{Örnek diagram ekle}
@@ -197,66 +221,51 @@ CEVAP\_ISTEK ve GELIS\_YOLU isminde tablolar olduğunu biliyoruz.
 
 \subsection{Kolon Veri Yapıları}
 
-\begin{itemize}
-\item Tablolarda mümkün olduğunca girilen bilgiler not null yapılmalıdır.
+\subsubsection{Yazı Değerler}
+Yazi degerleri eger değişken ise varchar ile, eğer sabit bir değer ise char olarak tutulmalıdır. Örneğin:
 
+\begin{itemize}
+\item Eğer bilgi girilen tip daima aynı sayıda ise örnek: Posta Kodu gibi char olarak tanımlanmalıdır.		 
+\item Eğer bilgi girilen değer değişken bir değer ise, ad soyad gibi varchar olarak tanımlanmalıdır.
+\end{itemize} 
+
+Eğer veri tabanında kullanılan genel dilden (türkçe olmayan) farklı değer girilebilir ise nchar,nvarchar tanımlanmalıdır.
+
+
+\subsubsection{Para ve Ondalık Değerler}
+
+\begin{itemize}
+\item  Money SQL standartında olmadığından kullanılmamalıdır. 
+\item  Float ve double tam değerler değildir, yaklaşık değer olarak çalışırlar. 
+Para hesaplarında kesinlikle kullanılmamaları gerekir.
+\item Para değerleri numeric(18,2) veya decimal(18,2) olmalıdır. numeric ve decimal bir birlerinin alias'ıdır. 
+\item Eğer para değerlerinde daha fazla küsürata ihtiyaç var ise   numeric(18,4)-decimal(18,4) gibi artırılabilir. 
+
+\end{itemize} 
+ 			
+
+\begin{itemize}
+\item   Birincil anahtar (Primary Key) konulmayan tablo olmayacaktır.		 
+\item   Tablolarda mümkün olduğunca girilen bilgiler not null yapılmalıdır.
+\item   Tanım tablosundaki değer  -32,768 - 32,767   smallint veri yapısını kullanın.
+\item   eğer tamsayı değer  -2,147,483,648 - 2,147,483,647 arası ise int veri yapısını kullanın.
+\item   Eğer anlamlı bir default/varsayılan değer verilebiliyorsa verilmelidir. Örneğin GuncellemeTarih default now() verilebilir.
+\item Primary key değerleri olarak uniqueidentifier veya Identity seçilmeli proje boyunca benzer bir yapı kullanılmalıdır.
+\item Primary key Sentetik Anahtar (Surrogate Key) olarak int IDENTITY değerleri yerine uniqueidentifier tercih edilmesi,
+kod yazılması kolaylığı açısından değerlendirilmeli ve proje başlangıcında karar verilmelidir.
+\item   Uniqueidentifier eğer PK olarak kullanılıyorsa default değer olarak newid() olmalıdır.	 
+
+\item   			Tarih bilgilerini tutarken smalldatetime tercih ediniz. 			
+\item   Eğer sadece  yıl bilgisi tutacaksanız, Mezuniyet yılı smallint tutabilirsiniz. 
+Bu tür bir kolona constraint ekleyin.örn: 
+  $  CHECK  (([GirisSene]>=(1900) AND   [GirisSene]<=datepart(year,getdate()))) $
+Yukarıdakı kısıtlama 
+  giris senesinin 1900 ile şu an bulunduğumuz sene arasında kalmasını 
+  sağlamaktadır.
+\item Tarih değerleri 
 \end{itemize}  			
   		 
-  			Her modülün kendine ait bir Tanım Tabloları scheması açılmalıdır. 
-  Mesela TT\_STAJ. Bu module ait tanım bilgileri burda girilmelidir. 		 
-   eğer Tanım tablosundaki değer 0-255  tinyint veri yapısını kullanın.
-  		 
-   eğer Tanım tablosundaki değer  -32,768 - 32,767   smallint veri yapısını 
-  kullanın.		 
-   eğer tamsayı değer  -2,147,483,648 - 2,147,483,647 arası ise int veri 
-  yapısını kullanın.		 
   
-  
-  			Eğer bir tablo birden fazla modul tarafından kullanılıyor ise, 
-  bu ortaklığı belirtecek yeni bir şema gerekirse açılmalıdır. 
-  Bu şema ismi eğer dışarıdan veri alınıyorsa bunu anlatan bir isim,
-  eğer 2 modulün ortak noktası ise, bu ortak nokta olabilir.
-  Sadece 2 modul tarafından kullanılacak bir tablo ORTAK şemasını eklenmemelidir.
-  
-  
-  
-  
-  			Eğer anlamlı bir default/varsayılan değer verilebiliyorsa verilmelidir.
-    Örneğin GuncellemeTarih default now() verilebilir.
-  
-  			Birincil anahtar (Primary Key) konulmayan tablo olmayacaktır.		 
-  			Sentetik Anahtar (Surrogate Key) olarak int IDENTITY değerleri yerine 
-  uniqueidentifier tercih edilmelidir.		 
-  			Uniqueidentifier eğer PK olarak kullanılıyorsa default değer olarak 
-  newid() olmalıdır.		 
-  			 Money SQL standartında olmadığından kullanılmamalıdır. Ayrıca float ve 
-  double tam değerler değil 			 yaklaşık değer olarak çalışırlar. Para 
-  hesaplarında kesinlikle kullanılmamaları gerekir.		 
-  			Para değerleri numeric(18,2) veya decimal(18,2) olmalıdır.	
-  numeric ve decimal bir birlerinin alias'ıdır. 
-    Eğer küsürat hesaplamalarıda gerekli ise numeric(18,4) veya daha fazla
-    bir ondalık kullanılabilir.
-
-  
-  			Turkish\_CI\_AS Sunucu coallationu olarak seçilmelidir. Nchar unicode 
-  olarak değerleri tuttuğu için 	2 katı yer kaplamakta ve 2 katı yavaş 
-  çalışmaktadır. Eğer veritabanında aynı anda iki dil bilgisi tutulmayacaksa, 
-  yani			hem rusça hemde türkçe bilgi,  varchar yada char olarak tutulmalıdır.
-  		 
- Eğer bilgi girilen tip daima aynı sayıda ise örnek: Posta Kodu gibi 
-  char olarak tanımlanmalıdır.		 
-  			Eğer bilgi girilen değer değişken bir değer ise, ad soyad gibi varchar 
-  olarak tanımlanmalıdır.		 
-  			Tarih bilgilerini tutarken smalldatetime tercih ediniz. 			
-  Eğer sadece 
-  yıl bilgisi tutacaksanız, Mezuniyet yılı smallint tutabilirsiniz. Bu tür bir 
-  kolona constraint ekleyin.			örn: 
-  
-  $  CHECK  (([GirisSene]>=(1900) AND   [GirisSene]<=datepart(year,getdate()))) $
-  
-  			 <BR>			Yukarıdakı kısıtlama 
-  giris senesinin 1900 ile şu an bulunduğumuz sene arasında kalmasını 
-  sağlamaktadır.								 
   				datetime (3.33 milliseconds accuracy)  	Jan 1, 1753  	Dec 31, 9999
   				 <BR>				smalldatetime (1 minute accuracy) 	Jan 1, 1900 	Jun 6, 2079		
   				 <BR>değerleri arasını göstermektedir. .NET üstünde doğru kabul edilen, 
@@ -349,9 +358,7 @@ CEVAP\_ISTEK ve GELIS\_YOLU isminde tablolar olduğunu biliyoruz.
       utrX + Tablo Ismi, yerine triggerin hangi işlem için olduğunu 
       söyleyen bir kelime gelicektir. insert (i), update (u), delete (d)
   
-\subsection{Kurulum Notları}
-Veritabanı kurulurken, SQL Server içinden Collation olarak Turkish\_CI\_AS 
-seçilmelidir. 
+
   
       
       
