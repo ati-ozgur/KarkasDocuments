@@ -1,20 +1,25 @@
 \documentclass[10pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+\newcommand{\authorName}{Atilla \"Ozg\"ur}
+\newcommand{\titleName}{Karkas SQL Server Veri tabanı Standartları}
+
+\input{latexAndBibliography/usePackageAndDefinitions}
+
+
 \begin{document}
 
+\author{Atilla Özgür}
+\title{Karkas SQL Server Veri Tabanı Standartları}
 
-\title{Karkas Veritabanı Standartları}
+\maketitle
 
-
-\section{Karkas SQL Server Veritabanı Standartları}
+\section{Şema Kavramı}
 
 
 SQL Server schema kavramını en iyi şekilde uygulayan veri tabanları arasındadır.
 Bu yüzden schema yapısının SQL server veritabanı tasarımı yapılırken kullanılması tavsiye edilir.
-Bu yapıda her ana modul için bir ana şema bir tanım tablosu şeması açılması tavsiye edilmektedir.
+Bu yapıda her ana modul için bir ana şema, bir tanım tablosu şeması açılması tavsiye edilmektedir.
+Referential  Integrity korunması açısından bütün uygulama tek bir veritabanında çalışmalıdır.
+
 Örneğin ihtiyaç duyduğunuz modullerin Insan Kaynakları, Muhasebe ve Bordro olduğunu düşünelim. 
 Bu yapıda aşağıdaki şemaların açılması uygun olacaktır.
 \begin{itemize}
@@ -51,27 +56,37 @@ Son olarak Ozluk bilgileri, Bordro ve insan kaynaklarının ihtiyaç duydukları
 Burada bu bilgiler sadece insan kaynakları şeması yada bordro şeması yerine ikisinin ortak kullandığı
 bir şemada olması daha uygundur.
 
+Her modul relationları, ilişkileri gösteren diagramlara sahip olmalıdır.
+\todo{diagram ekle}
+
+
+
+\subsection{Şema, Tablo, Kolon İsimlendirme}
+
+Schema ismi olarak kullandığınız isimleri tablo isimleri olarak kullanmayın. 
+Yani eğer BORDRO diye bir schema'nız varsa,	bu schema icinde veya 
+diğer schemaların içinde BORDRO diye bir tablonuz olmamalıdır.
+
+
+VS.NET içinde proje ismi olarak kullanacağınız bir ismi Schema ismi  olarak kullanmayınız.
+Yada Schema isimlerinizi, VS.NET içinde	proje ismi  olarak vermeyin.
+Compiler için sorunlar çıkarabiliyor.		 
+
+
+Veritabanındaki Tablo ve Şema isimleri tüm harfler büyük, Kelimeler arasında ise \_ olacak şekilde seçilmelidir.
+
+\begin{itemize}
+\item INSAN\_KAYNAKLARI.ILAC\_ALIMI\_ALINAN\_ILACLAR		 
+\item ORTAK.KISI\_EK\_BILGILER		 
+\item MUHASEBE.FIS		 
+\item MUHASEBE.FIS\_DETAY 
+
+\end{itemize}
 
 
 
 
-
-
-  			Veritabanındaki Tablo isimleri tüm harfler büyük, Kelimeler arasında 
-  ise \_ olacak şekilde seçilmelidir.
-  			INSAN\_KAYNAKLARI.ILAC\_ALIMI\_ALINAN\_ILACLAR		 
-  		Her Modul kendisine ait bir schema içinde tanımlanmalıdır. Referential 
-  Integrity korunması açısından bütün uygulama 		tek bir veritabanında 
-  çalışmalıdır.		 
-  			Schema ismi olarak kullandığınız isimleri tablo isimleri olarak 
-  kullanmayın. Yani eğer MAAS diye bir schema'nız varsa,			bu schema icinde veya 
-  diğer schemaların içinde MAAS diye bir tablonuz olmamalıdır.		 
-  			VS.NET içinde proje ismi olarak kullanacağınız bir ismi Schema ismi 
-  olarak kullanmayınız. Yada Schema isimlerinizi, VS.NET içinde			proje ismi 
-  olarak vermeyin. Compiler için sorunlar çıkarabiliyor.		 
-  			Her modul relationları, ilişkileri gösteren diagramlara sahip 
-  olmalıdır. 		 
-  			Raporlama açısından bütün tablo'ların ve anlamı açık olmayan kolanların 
+Raporlama açısından bütün tablo'ların ve anlamı açık olmayan kolanların 
   descriptionlarının yazılması gerekmektedir.		 
   			Tablolarda mümkün olduğunca girilen bilgiler not null yapılmalıdır.
   		 
