@@ -139,12 +139,41 @@ sekilde anlaşılacaktır.
 Ayrıca verilen referansın bir tanım tablosunamı yoksa bir ana tabloyamı yapıldığı
 daha iyi anlaşılacaktır.
 
-
-
-
 Not eğer verilen ikincil anahtar kolonu bir iş gereği yüzünden ise,
 kolon isminde bu durumun belirtilmesi ve aynı zamanda tablo isminin kullanılması daha iyi 
-olur örneğin:
+olur.
+
+Örneğin Bilgi Edinme için tasarlanan tablo isimlerine bir bakalım.
+\begin{itemize}
+
+\item BILGI\_EDINME.DILEKCE
+	\begin{itemize}
+		\item DilekceKey
+		\item BasvuruSahibiKisiKey
+		\item GonderenIP
+		\item DilekceIcerik
+		\item CevapIstekTip
+		\item GelisYoluTip
+		\item VatandasBasvuruReferansKey
+	\end{itemize}
+
+\end{itemize}
+
+Bu tabloyu okuduğumuzda DilekceKey primary key, 
+BasvuruSahibiKisiKey ve VatandasBasvuruReferansKey ana tablolara referans eden foreign key,
+CevapIstekTip ve GelisYoluTip tanım tablolarına referans eden bilgiler.
+
+Burada BasvuruSahibiKisiKey ORTAK.KISI tablosuna buyuk ihtimal ile referans vermektedir.
+KisiKey yerine BasvuruSahibiKisiKey kullanılması bu anahtarı dilekce basvuranı ifade ettiğini
+göstermektedir. Bu anahtar kullanılarak kisi adı soyadı gibi bilgilere ulaşılabilir.
+
+CevapIstekTip ve GelisYoluTip kolonları ile TT\_BILGI\_EDINME şemasında
+CEVAP\_ISTEK ve GELIS\_YOLU isminde tablolar olduğunu biliyoruz.
+
+
+
+
+
 
 
 
@@ -160,8 +189,6 @@ Raporlama açısından bütün tablo'ların ve anlamı açık olmayan kolanları
   			ORTAK isminde bir schema ortak kullanım için açılmalı, Bütün modüllerin 
   kullanabileceği tablolar burada oluşturulmalıdır.			KISI, KISI\_NUFUS\_BILGILERI 
   .... Bu şemada aslında nerdeyse sadece kişi bilgileri tutulmaktadır.
-  Buradaki tablo sayısı sınırlı tutulmalıdır. 10 tanenin üstüne çıktığı zaman
-  veritabanı daha zor anlaşılır olmaktadır.
   
   			TT\_ORTAK  (Tanım Tabloları Ortak) isminde bir schema ortak kullanım 
   için açılmalı, Bütün tanım bilgileri burda şeçilmelidir. 			Sehir, Cinsiyet 
