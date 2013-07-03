@@ -121,15 +121,29 @@ Aşağıdaki örneklerde Key kelimesinin seçilmiştir.
 Birincil Anahtarları TABLO ADI + Key olarak verilmesi tavsiye edilmektedir.
 Örneğin
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline Tablo Adı & Primary Key Adı \\ 
-\hline KISI & KisiKey \\ 
-\hline FIS & FisKey \\ 
-\hline ILAC\_ALIMI\_ALINAN\_ILACLAR & IlacAlimiAlinanIlaclarKey \\ 
-\hline  KISI\_EK\_BILGILER & KisiEkBilgilerKey \\ 
+\hline ORTAK.KISI & KisiKey \\ 
+\hline MUHASEBE.FIS & FisKey \\ 
+\hline BORDRO.ILAC\_ALIMI\_ALINAN\_ILACLAR & IlacAlimiAlinanIlaclarKey \\ 
+\hline ORTAK.KISI\_EK\_BILGILER & KisiEkBilgilerKey \\ 
 \hline 
 \end{tabular} 
 
+
+Eğer tanım tablolarının primary key'ı seçiliyor ise TabloIsmi + (No,Turu,TurNo,Tipi,TipNo)
+gibi kolon isminden sonra türkçe okunmaya uygun bir ek kullanılmalıdır.
+
+Örneğin
+
+\begin{tabular}{|l|l|}
+\hline Tablo Adı & Primary Key Adı \\ 
+\hline TT\_ORTAK.Cinsiyet & CinsiyetTipNo \\ 
+\hline TT\_ORTAK.SEHIR & SehirNo  \\ 
+\hline TT\_OZGECMIS.EGITIM\_TIP & EgitimTipNo \\ 
+\hline TT\_OZGECMIS.YABANCI\_DIL\_SINAV\_TUR & YabanciDilSinavTurNo \\ 
+\hline 
+\end{tabular} 
 
 
 \subsubsection{Kolon İsimlendirme - Foreign Key}
@@ -181,22 +195,13 @@ CEVAP\_ISTEK ve GELIS\_YOLU isminde tablolar olduğunu biliyoruz.
 
 
 
+\subsection{Kolon Veri Yapıları}
 
+\begin{itemize}
+\item Tablolarda mümkün olduğunca girilen bilgiler not null yapılmalıdır.
 
-
-
-	 
-  			Tablolarda mümkün olduğunca girilen bilgiler not null yapılmalıdır.
+\end{itemize}  			
   		 
-  			Tablolarda primary key ismini verirken, TabloIsmi + Key 
-  kullanabilirsiniz. KISI tablosunun primary Key'i KisiKey olabilir.		 
-  			ORTAK isminde bir schema ortak kullanım için açılmalı, Bütün modüllerin 
-  kullanabileceği tablolar burada oluşturulmalıdır.			KISI, KISI\_NUFUS\_BILGILERI 
-  .... Bu şemada aslında nerdeyse sadece kişi bilgileri tutulmaktadır.
-  
-  			TT\_ORTAK  (Tanım Tabloları Ortak) isminde bir schema ortak kullanım 
-  için açılmalı, Bütün tanım bilgileri burda şeçilmelidir. 			Sehir, Cinsiyet 
-  ...		 
   			Her modülün kendine ait bir Tanım Tabloları scheması açılmalıdır. 
   Mesela TT\_STAJ. Bu module ait tanım bilgileri burda girilmelidir. 		 
    eğer Tanım tablosundaki değer 0-255  tinyint veri yapısını kullanın.
