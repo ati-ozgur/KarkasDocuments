@@ -78,7 +78,8 @@ Bu modul 2-3 ana modul olarak ayrılabilir. Örneğin personel için aşağıdak
 \end{itemize}
 
 
-
+Ayrıca gecici daha sonra silinebilecek tabloların tutulması için GECICI veya TEMP isminde bir şemada
+eklenmesi uygun olacaktır.
 
 Her modul relationları, ilişkileri gösteren diagramlara sahip olmalıdır.
 \missingfigure{Örnek diagram ekle}
@@ -227,12 +228,18 @@ Primary key Sentetik Anahtar (Surrogate Key) olarak int IDENTITY değerleri yeri
 kod yazılması kolaylığı açısından değerlendirilmeli ve proje başlangıcında karar verilmelidir.
 Uniqueidentifier eğer PK olarak kullanılıyorsa default değer olarak newid() olmalıdır.
 
+\subsubsection{Foreign Key}
+Eğer bir tablo içindeki kolon başka bir tabloya referans veriyorsa 
+kesinlikle foreign key tanımlanmalı ve bu			kolonun ismi TabloIsmiTipNo yada 
+TabloIsmiKey olarak tanımlanmalı. TipNo tanım tabloları için. Key ise normal 
+tablolar			için kullanılmalıdır.	
+TipNo yerine referans verilen tanımın türkçesine göre TurNo
+gibi diğer kelimelerde kullanılabilir.
+Eğer bir kolon ismi TurNo,TipNo,Turu,Tipi,RenkNo,BilgiNo
+gibi bir kelime ile bitiyorsa ise çok büyük ihtimal ile
+Tanım Tablolarına referans veriyordur.
+TipNo(...) okunduğu zaman bir tanım tablosuna referans düşünülürken, Key ise   1..* veya 1..1 ilişkisini tanımlamalıdır.		 
 
-
-\begin{itemize}
-\item Eğer bilgi girilen tip daima aynı sayıda ise örnek: Posta Kodu gibi char olarak tanımlanmalıdır.		 
-\item Eğer bilgi girilen değer değişken bir değer ise, ad soyad gibi varchar olarak tanımlanmalıdır.
-\end{itemize} 
 
 \subsubsection{Yazı Değerler}
 Yazi degerleri eger değişken ise varchar ile, eğer sabit bir değer ise char olarak tutulmalıdır. Örneğin:
@@ -244,6 +251,13 @@ Yazi degerleri eger değişken ise varchar ile, eğer sabit bir değer ise char 
 
 Eğer veri tabanında kullanılan genel dilden (türkçe olmayan) farklı değer girilebilir ise nchar,nvarchar tanımlanmalıdır.
 
+\subsubsection{Sayı Değerler}
+Sayı değerleri için alabilecekleri aralıkları düşünerek tiny int, short int , int veya big int kullanınız. 
+
+\begin{itemize}
+\item   Tablodaki değer  -32,768 - 32,767   smallint veri yapısını kullanın.
+\item   eğer tamsayı değer  -2,147,483,648 - 2,147,483,647 arası ise int veri yapısını kullanın.
+\end{itemize} 
 
 \subsubsection{Para ve Ondalık Değerler}
 
@@ -256,136 +270,142 @@ Para hesaplarında kesinlikle kullanılmamaları gerekir.
 
 \end{itemize} 
  			
+\subsubsection{Tarih Değerler}
+Tarih değerleri 	datetime (3.33 milliseconds accuracy)  	Jan 1, 1753  --- Dec 31, 9999
+,smalldatetime (1 minute accuracy) 	Jan 1, 1900  --- Jun 6, 2079		
+değerleri arasını göstermektedir. 
+.NET üstünde doğru kabul edilen, 
+örn: 01.01.1600 gibi bir değer SQL Server üzerinde hata verebilir.
+Tarih değerlerinin bu aralıkta olduğuna emin olunuz.
 
 \begin{itemize}
-\item  		 
-\item   Tablolarda mümkün olduğunca girilen bilgiler not null yapılmalıdır.
-\item   Tanım tablosundaki değer  -32,768 - 32,767   smallint veri yapısını kullanın.
-\item   eğer tamsayı değer  -2,147,483,648 - 2,147,483,647 arası ise int veri yapısını kullanın.
-\item   Eğer anlamlı bir default/varsayılan değer verilebiliyorsa verilmelidir. Örneğin GuncellemeTarih default now() verilebilir.
-	 
 
-\item   			Tarih bilgilerini tutarken smalldatetime tercih ediniz. 			
-\item   Eğer sadece  yıl bilgisi tutacaksanız, Mezuniyet yılı smallint tutabilirsiniz. 
+\item Tarih bilgilerini tutarken smalldatetime tercih ediniz. 			
+\item Eğer sadece  yıl bilgisi tutacaksanız, Mezuniyet yılı smallint tutabilirsiniz. 
 Bu tür bir kolona constraint ekleyin.örn: 
   $  CHECK  (([GirisSene]>=(1900) AND   [GirisSene]<=datepart(year,getdate()))) $
-Yukarıdakı kısıtlama 
-  giris senesinin 1900 ile şu an bulunduğumuz sene arasında kalmasını 
-  sağlamaktadır.
-\item Tarih değerleri 
+Yukarıdakı kısıtlama giris senesinin 1900 ile şu an bulunduğumuz sene arasında kalmasını sağlamaktadır.
+\end{itemize}  			
+
+
+\subsubsection{Resim Dosya gibi Binary Değerler}
+Resim veya binary data tutmak için varbinary(max) tercih edin. image 
+veri tipi SQL Server'ın yeni versiyonlarında kullanılmayacaktır.
+ 
+\subsubsection{Diger Notlar}
+
+\begin{itemize}
+\item   Tablolarda mümkün olduğunca girilen bilgiler not null yapılmalıdır.
+\item   Eğer anlamlı bir default/varsayılan değer verilebiliyorsa verilmelidir. Örneğin GuncellemeTarih default now() verilebilir.
 \end{itemize}  			
   		 
   
-  				datetime (3.33 milliseconds accuracy)  	Jan 1, 1753  	Dec 31, 9999
-  				 <BR>				smalldatetime (1 minute accuracy) 	Jan 1, 1900 	Jun 6, 2079		
-  				 <BR>değerleri arasını göstermektedir. .NET üstünde doğru kabul edilen, 
-  örn: 01.01.1600 gibi bir değer SQL Server'da				hata verebilir. Tarih 
-  Değerlerinin bu aralıkta olduğuna emin olunuz.						 
-  			Resim veya binary data tutmak için varbinary(max) tercih edin. image 
-  veri tipi SQL Server'ın yeni versiyonlarında			kullanılmayacaktır.		 
-  			Eğer bir tablo içindeki kolon başka bir tabloya referans veriyorsa 
-  kesinlikle foreign key tanımlanmalı ve bu			kolonun ismi TabloIsmiTipNo yada 
-  TabloIsmiKey olarak tanımlanmalı. TipNo tanım tabloları için. Key ise normal 
-  tablolar			için kullanılmalıdır.	
-    TipNo yerine referans verilen tanımın türkçesine göre TurNo
-    gibi diğer kelimelerde kullanılabilir.
-    Eğer bir kolon ismi TurNo,TipNo,Turu,Tipi,RenkNo,BilgiNo
-    gibi bir kelime ile bitiyorsa ise çok büyük ihtimal ile
-    Tanım Tablolarına referans veriyordur.
+\section{Yazılım Geliştirme Yetkileri}  									 
+Yazılım geliştiriciler için sınırlı yetkili veri tabanı kullanıcılar açılması 
+ve SQL Sever Management Studio üzerinde işlem yapılırken bu 
+kullanıcılar ile sisteme girilmesi.düşünülmelidir.
+En doğrusu yazılım geliştirici kullanıcılarının bir role atanması ve bu rolün kısıtlanması olabilir.
+
+  	 
+\section{Stored Procedures - Functions}  									 
+Yazılım geliştiriciler Stored Procedure yazma gereksinimi duyarlarsa 
+bunu veritabanı yöneticisi ve takım liderlerinin onayını	aldıktan sonra   yapabileceklerdir.
+Veri tabanında mümkün olduğunca stored procedure ve trigger olmamalı,
+bunların yerine .NET kodları ile çözüm bulunmaya çalışılmalıdır.
+
+
+Stored Procudures usp\_ ile, functionlar ufn\_ ile, triggerler ise utnX\_ ile başlamalıdır (X-->;i:insert, u:update, d:delete). 			
+Note: eğer bir stored Procedure sp veya xp ile başlarsa SQL server 
+bunun System stored procedure'u olduğunu düşündüğü için ilk önce master veritabanında arayacaktır. 
+  
+  
+\section{İsimlendirme Konvansiyonu}  
+  
+\subsection{İsimlendirme Konvansiyonu - Stored Procedure - Gömülü Yordamlar }  
+
+Stored Procudure'lara isim verirken tablo ismi + yaptığı işlem şeklinde  isim verin.
     
 
+\begin{itemize}
+\item Tablo Ismi + yaptığı iş 
+\item usp\_PersonelAraAdiVeSoyadiIle 
+\item usp\_Personel\_Oku\_Tum 
+\item usp\_MuhasebeYillikMizanHesapla
+\item usp\_BordroAylikBordroHesapla
+\end{itemize}
+
+Not bu isimler örnek olsun diye verilmiştir. 
+Veritabanında basit CRUD ve arama işlemleri için stored procedure olmamalıdır.
+
+\subsection{İsimlendirme Konvansiyonu - Table and View-Tablo ve Görüntü}  
+
+\begin{itemize}
+\item INSAN\_KAYNAKLARI.MUSTERI 
+\item TANIM\_TABLOLARI.NUFUS\_CUZDANI\_VERILIS\_NEDENI
+\end{itemize}  
+
+Schema ismi + Tablo ismi, 2 kelimeden fazla olan isimler \_ ile ayrılıyor. 
+Tablo ve görüntülere (view) ayrı isimler vermiyoruz.		  
+
+\subsection{İsimlendirme Konvansiyonu - Column-Kolon}  
+Her kelimenin ilk harfi büyük yazılır. 
+\begin{itemize}
+\item MusteriKey 
+\item SonDegistirmeTarihi
+\item TipNo
+\item MusteriKey
+\end{itemize}  
+
+
+\subsection{İsimlendirme Konvansiyonu - Index}  
+\begin{itemize}
+\item IX\_TabloIsmiKolonIsmi 
+\item IX\_MusteriMusteriNo
+\item TipNo
+\item MusteriKey
+\end{itemize}  
+Her kelimenin ilk harfi büyük yazılır.
+
+\subsection{İsimlendirme Konvansiyonu - Yabancı anahtar (Foreign key)}  
+\begin{itemize}
+\item  FK\_TabloIsmi1KolonIsmi1FK\_TabloIsmi2KolonIsmi2 
+\item FK\_MusteriMusteriNoSiparisMusteriNo
+\end{itemize}
+Her kelimenin ilk harfi büyük yazılır. 
   
-  			TipNo(...) okunduğu zaman bir tanım tablosuna referans düşünülürken, Key ise 
-  1..* veya 1..1 ilişkisini tanımlamalıdır.		 
-  			Yazılım geliştiriciler için sınırlı yetkili veri tabanı kullanıcıları 
-  açılacaktır. SQL Sever Management Studio üzerinde işlem			yapılırken bu 
-  kullanıcı ile sisteme girilecektir.		 
-  			Yazılım geliştiriciler Stored Procedure yazma gereksinimi duyarlarsa 
-  bunu veritabanı yöneticisi ve takım liderlerinin onayını			 aldıktan sonra 
-  yapabileceklerdir.		 
-  			Stored Procudures usp\_ ile, functionlar ufn\_ ile, triggerler ise 
-  utnX\_ ile başlamalıdır (X-->;i:insert, u:update, d:delete). 			
+\subsection{İsimlendirme Konvansiyonu - Default - Varsayılan}  
+\begin{itemize}
+\item DF\_
+\item DF\_PERSONEL\_IlkGirisTarihi 
+\end{itemize}  
   
+SQL Server DF veriyor. Management Studio icinde Default'ları verirseniz, İsimlendirme düzgün olur. 		  
+
+\subsection{İsimlendirme Konvansiyonu - Constraint }  
+\begin{itemize}
+\item CK\_
+\item CK\_OKUL\_BILGILERI\_GirisSenesi  
+\end{itemize}  
   
-  Note: eğer bir 
-  stored Procedure sp veya xp ile başlarsa SQL server 			bunun System stored 
-  procedure'u olduğunu düşündüğü için ilk önce master veritabanında arayacaktır. 
+SQL Server CK veriyor. Management Studio icinde Constarint yazarsanız, İsimlendirme düzgün olur. 				 
   
-  
-  Stored Procudure'lara isim verirken tablo ismi + yaptığı işlem şeklinde 
-  isim verin.
-		usp\_Personel\_Ekle			usp\_Personel\_Sil			 
-		usp\_Personel\_Guncelle		usp\_Personel\_Oku			 
-		usp\_Personel\_Oku\_Tum		usp\_Personel\_Ara\_AdiVeSoyadiIle
-  
-     Table and View-Tablo ve Görüntü 
-     -- 
-    INSAN\_KAYNAKLARI.MUSTERI 
-      			TANIM\_TABLOLARI.NUFUS\_CUZDANI\_VERILIS\_NEDENI 
-    Schema ismi + Tablo ismi, 2 kelimeden fazla olan isimler \_ ile 
-      ayrılıyor. Tablo ve Viewlara ayrı isimler vermiyoruz.		  
-  
-     Column-Kolon 
-     -- 
-    MusteriKey,TipNo,SonDegistirmeTarihi 
-    Her kelimenin ilk harfi büyük yazılır. 
-  
-     Temp Table-Geçici Tablo 
-     GECICI.TABLO\_ISMI 
-    MusteriKey,TipNo,SonDegistirmeTarihi 
-    Her kelimenin ilk harfi büyük yazılır. 
-  
-     Index isimlendirme 
-     IX\_TabloIsmiKolonIsmi 
-     IX\_MusteriMusteriNo 
-    Her kelimenin ilk harfi büyük yazılır. 
-  
-     Yabancı anahtar (Foreign key) 
-     FK\_TabloIsmi1KolonIsmi1FK\_TabloIsmi2KolonIsmi2 
-     FK\_MusteriMusteriNoSiparisMusteriNo 
-    Her kelimenin ilk harfi büyük yazılır. 
-  
-     Stored Procedure -Gömülü Yordamlar 
-     usp\_ 
-     usp\_PersonelAraAdiVeSoyadiIle 
-     Tablo Ismi + yaptığı iş 		  
-  
-    Default - Varsayılan 
-     DF\_ 
-     DF\_PERSONEL\_IlkGirisTarihi 
-     SQL Server DF veriyor. Management Studio icinde Default'ları 
-      verirseniz, İsimlendirme düzgün olur. 		  
-  
-     Default - Varsayılan 
-     CK\_ 
-     CK\_OKUL\_BILGILERI\_GirisSenesi 
-     SQL Server CK veriyor. Management Studio icinde Constarint 
-      yazarsanız, İsimlendirme düzgün olur. 				 
-  
-     Trigger - Tetikleyici 
-     utrX\_ 
-     utru\_PERSONEL 
-      utrX + Tablo Ismi, yerine triggerin hangi işlem için olduğunu 
-      söyleyen bir kelime gelicektir. insert (i), update (u), delete (d)
-  
+\subsection{İsimlendirme Konvansiyonu - Trigger - Tetikleyici  }  
+utrX + Tablo Ismi, yerine triggerin hangi işlem için olduğunu söyleyen bir kelime gelicektir. 
+
+\begin{itemize}
+\item utrX\_ + tablo ismi + islem (insert (i), update (u), delete (d))
+\item utrX\_ORTAK\_KISI\_Delete
+\end{itemize}  
 
   
-      
-      
-Revision 
-Yazarlar 
-Yapılan Değişiklikler 
-  
-     0.2  
-     Atilla Özgür 
-    İlk Yazım 
-    
-  
-     0.3 (2013-02-13) 
-     Atilla Özgür 
-    Çok uzun bir aradan sonra bazı düzeltmeler 
-    
-    
 
+\begin{tabular}{|l|l|l|l|}
+\hline Revision & Yazarlar & Tarih & Yapılan Değişiklikler  \\ 
+\hline 0.1 &  Atilla Özgür & 2006 & İlk Yazım   \\ 
+\hline 0.2 &  Atilla Özgür & 2008 & Fatih ile İç İşlerinde yapılan değişiklik \\ 
+\hline 0.3 &  Atilla Özgür & 2013-02-13 & Çok uzun bir aradan sonra bazı düzeltmeler  \\ 
+\hline 0.4 &  Atilla Özgür & 2013-07-04 & Latex cevrimi, sectionlara ayırma , tümüyle tekrar yazıldı.  \\ 
+\hline 
+\end{tabular} 
 
 \end{document}
