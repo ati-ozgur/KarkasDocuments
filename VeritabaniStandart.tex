@@ -9,12 +9,53 @@
 \title{Karkas Veritabanı Standartları}
 
 
-\section{Karkas Veritabanı Standartları}
+\section{Karkas SQL Server Veritabanı Standartları}
+
+
+SQL Server schema kavramını en iyi şekilde uygulayan veri tabanları arasındadır.
+Bu yüzden schema yapısının SQL server veritabanı tasarımı yapılırken kullanılması tavsiye edilir.
+Bu yapıda her ana modul için bir ana şema bir tanım tablosu şeması açılması tavsiye edilmektedir.
+Örneğin ihtiyaç duyduğunuz modullerin Insan Kaynakları, Muhasebe ve Bordro olduğunu düşünelim. 
+Bu yapıda aşağıdaki şemaların açılması uygun olacaktır.
+\begin{itemize}
+\item MUHASEBE
+\item TT\_MUHASEBE
+\item INSAN\_KAYNAKLARI
+\item TT\_INSAN\_KAYNAKLARI
+\item BORDRO
+\item TT\_BORDRO
+\item ORTAK
+\item TT\_ORTAK
+\item OZLUK\_BILGILERI
+\item TT\_OZLUK\_BILGILERI
+\item FIRMALAR
+\item TT\_FIRMALAR
+
+\end{itemize}
+
+
+Burada muhasebe, insan kaynakları ve bordro şemaları zaten ihtiyaç duyulan şemalardır.
+Bunlara ek olarak kişi bilgilerinin tutulması için ad, soyad, kimlik bilgileri etc ORTAK şeması
+önerilmektedir. TT\_ORTAK şeması buradaki bilgiler için gerekli tanım tablolarını tutacaktır.
+Örneğin TT\_ORTAK.CINSIYET ismindeki bir tanım tablosu cinsiyet bilgileri tutabilir.
+Burada Kisi için tutulacak bilgiler herkes için kesin tutulması gereken bilgilerdir. 
+Örneğin ad soyad, tc kimlik no resim gibi. Ama eger sadece yazılımı kullanan kurumdaki,
+kişilere ait  (örneğin kurum sicil no, kurum eposta, kurum telefon) gibi bilgiler  var ise 
+bunların farklı şemada tutulması daha yararlı olacaktır. 
+
+Buraya FIRMALAR şeması muhasebe firmalarının fatura kesecekleri firma bilgileri için eklenmiştir.
+Firma, Kisi bilgileri bir çok modul tarafından ihtiyaç duyulan bilgiler oldukları için bunların
+ayrı şemalarda tutulmaları daha yararlı olacaktır.
+
+Son olarak Ozluk bilgileri, Bordro ve insan kaynaklarının ihtiyaç duydukları ortak bilgileri taşıyacaktır.
+Burada bu bilgiler sadece insan kaynakları şeması yada bordro şeması yerine ikisinin ortak kullandığı
+bir şemada olması daha uygundur.
 
 
 
-Veritabanı kurulurken, SQL Server içinden Collation olarak Turkish\_CI\_AS 
-seçilmelidir. 
+
+
+
 
   			Veritabanındaki Tablo isimleri tüm harfler büyük, Kelimeler arasında 
   ise \_ olacak şekilde seçilmelidir.
@@ -191,6 +232,11 @@ seçilmelidir.
      utru\_PERSONEL 
       utrX + Tablo Ismi, yerine triggerin hangi işlem için olduğunu 
       söyleyen bir kelime gelicektir. insert (i), update (u), delete (d)
+  
+\subsection{Kurulum Notları}
+Veritabanı kurulurken, SQL Server içinden Collation olarak Turkish\_CI\_AS 
+seçilmelidir. 
+  
       
       
 Revision 
