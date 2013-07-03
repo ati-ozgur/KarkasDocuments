@@ -220,6 +220,19 @@ CEVAP\_ISTEK ve GELIS\_YOLU isminde tablolar olduğunu biliyoruz.
 
 
 \subsection{Kolon Veri Yapıları}
+\subsubsection{Primary Key}
+Birincil anahtar (Primary Key) konulmayan tablo olmayacaktır.
+Primary key değerleri olarak uniqueidentifier veya Identity seçilmeli proje boyunca benzer bir yapı kullanılmalıdır.
+Primary key Sentetik Anahtar (Surrogate Key) olarak int IDENTITY değerleri yerine uniqueidentifier tercih edilmesi,
+kod yazılması kolaylığı açısından değerlendirilmeli ve proje başlangıcında karar verilmelidir.
+Uniqueidentifier eğer PK olarak kullanılıyorsa default değer olarak newid() olmalıdır.
+
+
+
+\begin{itemize}
+\item Eğer bilgi girilen tip daima aynı sayıda ise örnek: Posta Kodu gibi char olarak tanımlanmalıdır.		 
+\item Eğer bilgi girilen değer değişken bir değer ise, ad soyad gibi varchar olarak tanımlanmalıdır.
+\end{itemize} 
 
 \subsubsection{Yazı Değerler}
 Yazi degerleri eger değişken ise varchar ile, eğer sabit bir değer ise char olarak tutulmalıdır. Örneğin:
@@ -245,15 +258,12 @@ Para hesaplarında kesinlikle kullanılmamaları gerekir.
  			
 
 \begin{itemize}
-\item   Birincil anahtar (Primary Key) konulmayan tablo olmayacaktır.		 
+\item  		 
 \item   Tablolarda mümkün olduğunca girilen bilgiler not null yapılmalıdır.
 \item   Tanım tablosundaki değer  -32,768 - 32,767   smallint veri yapısını kullanın.
 \item   eğer tamsayı değer  -2,147,483,648 - 2,147,483,647 arası ise int veri yapısını kullanın.
 \item   Eğer anlamlı bir default/varsayılan değer verilebiliyorsa verilmelidir. Örneğin GuncellemeTarih default now() verilebilir.
-\item Primary key değerleri olarak uniqueidentifier veya Identity seçilmeli proje boyunca benzer bir yapı kullanılmalıdır.
-\item Primary key Sentetik Anahtar (Surrogate Key) olarak int IDENTITY değerleri yerine uniqueidentifier tercih edilmesi,
-kod yazılması kolaylığı açısından değerlendirilmeli ve proje başlangıcında karar verilmelidir.
-\item   Uniqueidentifier eğer PK olarak kullanılıyorsa default değer olarak newid() olmalıdır.	 
+	 
 
 \item   			Tarih bilgilerini tutarken smalldatetime tercih ediniz. 			
 \item   Eğer sadece  yıl bilgisi tutacaksanız, Mezuniyet yılı smallint tutabilirsiniz. 
