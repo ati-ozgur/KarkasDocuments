@@ -63,14 +63,13 @@ Her modul relationları, ilişkileri gösteren diagramlara sahip olmalıdır.
 
 \subsection{Şema, Tablo, Kolon İsimlendirme}
 
-Schema ismi olarak kullandığınız isimleri tablo isimleri olarak kullanmayın. 
-Yani eğer BORDRO diye bir schema'nız varsa,	bu schema icinde veya 
-diğer schemaların içinde BORDRO diye bir tablonuz olmamalıdır.
+Şema ismi olarak kullandığınız isimleri tablo isimleri olarak kullanmayın. 
+Yani eğer BORDRO diye bir şemanız varsa,	bu şema icinde veya 
+diğer şemaların içinde BORDRO diye bir tablonuz olmamalıdır.
 
-
-VS.NET içinde proje ismi olarak kullanacağınız bir ismi Schema ismi  olarak kullanmayınız.
-Yada Schema isimlerinizi, VS.NET içinde	proje ismi  olarak vermeyin.
-Compiler için sorunlar çıkarabiliyor.		 
+VS.NET içinde proje ismi olarak kullanacağınız bir ismi şema ismi  olarak kullanmayınız.
+Yada şema isimlerinizi, VS.NET içinde	proje ismi  olarak vermeyin.
+Derleyici (Compiler)  için sorunlar çıkarabiliyor.		 
 
 
 Veritabanındaki Tablo ve Şema isimleri tüm harfler büyük, Kelimeler arasında ise \_ olacak şekilde seçilmelidir.
@@ -82,6 +81,72 @@ Veritabanındaki Tablo ve Şema isimleri tüm harfler büyük, Kelimeler arasın
 \item MUHASEBE.FIS\_DETAY 
 
 \end{itemize}
+
+
+\subsubsection{Kolon İsimlendirme}
+Kolon isimleri verilirken .NET isimlendir konvansiyonuna uygun olarak her kelime buyuk harf ile baslamalı,
+diğer harfler kucuk harf olmalıdır.
+Kolon isimleri kullanılırken türkçe karakterler (İ,Ü,ı ..) kullanılmamalıdır.
+Bakınız aşağıdaki örnekler.
+
+
+\begin{enumerate}
+\item Ad
+\item Soyad
+\item IkinciAdi
+\item TcKimlikNo
+\item SehirNo
+\end{enumerate}
+
+\subsubsection{Kolon İsimlendirme - Primary Key}
+Primary key - Birincil anahtar isimlerinin nasıl olması gerektiğine proje başında karar verilmeli ve bu isimler
+proje boyunca uyulmalıdır.
+Buna göre birincil anahtar için aşağıdaki kelimelerden biri seçilmelidir.
+\begin{enumerate}
+\item Key
+\item ID
+\item Id
+\end{enumerate}
+Key anahtar, Id Identity (kimlik) kelimelerinin kısaltmasıdır.
+Projede bunlardan sadece birinin kullanılması daha uygun olacaktır.
+Aynı şekilde ID ve Id olarak karar verilmeli ve hep aynı şekilde kullanılmalıdır.
+
+Aşağıdaki örneklerde Key kelimesinin seçilmiştir.
+
+Birincil Anahtarları TABLO ADI + Key olarak verilmesi tavsiye edilmektedir.
+Örneğin
+
+\begin{tabular}{|c|c|}
+\hline Tablo Adı & Primary Key Adı \\ 
+\hline KISI & KisiKey \\ 
+\hline FIS & FisKey \\ 
+\hline ILAC\_ALIMI\_ALINAN\_ILACLAR & IlacAlimiAlinanIlaclarKey \\ 
+\hline  KISI\_EK\_BILGILER & KisiEkBilgilerKey \\ 
+\hline 
+\end{tabular} 
+
+
+
+\subsubsection{Kolon İsimlendirme - Foreign Key}
+
+Kolonlarda ikincil anahtar isimleri verilirken dikkat edilmesi gereken kural,
+referans edilen tablonun bir tanım tablosumu yoksa bir ana tablomu olduğu kuralıdır.
+Eğer bir ana tabloya referans veriliyorsa TabloIsmi + Key kullanılmalıdır.
+Eğer bir tanım tablosuna referans veriliyorsa TabloIsmi + (No,Turu,TurNo,Tipi,TipNo)
+gibi kolon isminden sonra türkçe okunmaya uygun bir ek kullanılmalıdır.
+Bu sayede bir tablo incelenirken hangi tablolara referans verdiği daha rahat bir
+sekilde anlaşılacaktır. 
+Ayrıca verilen referansın bir tanım tablosunamı yoksa bir ana tabloyamı yapıldığı
+daha iyi anlaşılacaktır.
+
+
+
+
+Not eğer verilen ikincil anahtar kolonu bir iş gereği yüzünden ise,
+kolon isminde bu durumun belirtilmesi ve aynı zamanda tablo isminin kullanılması daha iyi 
+olur örneğin:
+
+
 
 
 
