@@ -1,0 +1,75 @@
+\documentclass[10pt,a4paper,draft]{article}
+\newcommand{\authorName}{Atilla \"Ozg\"ur}
+\newcommand{\titleName}{Asp.Net MVC Scaffolding}
+
+\input{latexAndBibliography/usePackageAndDefinitions}
+
+
+\begin{document}
+
+Karkas code gen tarafından veri tabanından kod üretildiğinde,
+TypeLibrary altında her veri tabanı tablosunun bir eşi olarak
+bir c\# sınıfı, data model, üretilir. 
+Bu üretilen c\# sınıflarına veritabanınan anlaşılabilecek olan
+tüm scaffolding özellikleri eklenmektedir.
+Ama Asp.Net MVC tarafından oluşturulan scaffolding kodunu
+daha iyi yönetmek amacı ile üretilen
+bu sınıflara ek annotationlar eklenebilir.
+
+
+Eklenebilecek bu annotationlar aşağıdaki listede görülebilir.
+
+\begin{itemize}
+
+\item  Key
+
+\item  StringLength
+
+\item  MaxLength
+
+\item ForeignKey
+
+\item DatabaseGenerated
+
+\item  NotMapped
+
+
+\item  ConcurrencyCheck
+
+\item  Required
+
+\item  Timestamp
+
+\item  ComplexType
+
+\item  UIHint
+
+\end{itemize}
+
+Bunun haricinde Karkas ile kod geliştirilirken kullanılmayan
+ama code first yaklaşımı ile Entity Framework ile kod
+geliştirdiğinizde ihtiyacınız olabilecek olan
+annotationlar aşağıdaki gibidir.
+
+
+\begin{itemize}
+
+\item  Column
+
+\item Table
+
+\item InverseProperty
+\end{itemize}
+
+
+
+
+
+
+
+
+\section*{References}
+
+
+
+\end{document}
