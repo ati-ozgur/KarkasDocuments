@@ -1,13 +1,40 @@
-\documentclass[10pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{makeidx}
+\documentclass[10pt,a4paper,draft]{article}
+\newcommand{\authorName}{Atilla \"Ozg\"ur}
+\newcommand{\titleName}{Razor Kopya Kağıdı}
+
+\input{latexAndBibliography/usePackageAndDefinitions}
+
+
 \begin{document}
 
 
 
+
+
+
+Multiline code block - Çok Satırlı kod örneği.
+
+
+
+
+\lstinputlisting[language=html]{CodeExamples/Razor/MultiLineRazor.cshtml}
+
+
+
+
+
+Example of Inline Expression
+
+\begin{lstlisting}
+<script src="@Url.Content("~/Scripts/MSAjaxHistoryBundle.js")" type="text/javascript"></script>
+\end{lstlisting}
+
+
+
+\section*{References}
+
+Developer Review - Four ASP.NET MVC View Engines
+\url{http://channel9.msdn.com/coding4fun/articles/Developer-Review-Four-ASPNET-MVC-View-Engines}
 
 
 \end{document}
