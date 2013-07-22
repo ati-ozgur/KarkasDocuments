@@ -1,0 +1,5 @@
+@{
+       string message = "The time is: {0}";
+       string timeString = DateTime.Now.ToShortTimeString();
+       string output = string.Format(message, timeString);
+}
