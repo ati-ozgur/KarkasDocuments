@@ -83,7 +83,7 @@
 \usepackage{url}
 
 \hypersetup{
-%    bookmarks=true,         % show bookmarks bar?
+    bookmarks=true,         % show bookmarks bar?
     unicode=true,          % non-Latin characters in Acrobat’s bookmarks
     pdftoolbar=true,        % show Acrobat’s toolbar?
     pdfmenubar=true,        % show Acrobat’s menu?
@@ -102,16 +102,62 @@
 
 
 
+\usepackage{color}
+\usepackage{courier}
+\usepackage{xcolor}
 \usepackage{listings}
-\lstloadlanguages{% Check Dokumentation for further languages ...
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+
+\lstset{
+         basicstyle=\footnotesize\ttfamily, % 
+         %numbers=left,               % 
+         numberstyle=\tiny,          % 
+         %stepnumber=2,               % 
+         numbersep=5pt,              % 
+         tabsize=2,                  % 
+         extendedchars=true,         %
+         breaklines=true,            % 
+         keywordstyle=\color{red},
+    		frame=b,         
+ %        keywordstyle=[1]\textbf,    % 
+ %        keywordstyle=[2]\textbf,    %
+ %        keywordstyle=[3]\textbf,    %
+ %        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+         stringstyle=\color{white}\ttfamily, % 
+         showspaces=false,           % 
+         showtabs=false,             % 
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framexrightmargin=5pt,
+         framexbottommargin=4pt,
+         %backgroundcolor=\color{lightgray},
+         showstringspaces=false      % 
+ }
+ \lstloadlanguages{% Check Dokumentation for further languages ...
          %[Visual]Basic
          %Pascal
          %C
          %C++
          %XML
-         Java
+         HTML
+         %,C#
+         ,Java
          ,SQL
  }
+    %\DeclareCaptionFont{blue}{\color{blue}} 
+
+  %\captionsetup[lstlisting]{singlelinecheck=false, labelfont={blue}, textfont={blue}}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+
 \lstset{frame=single,breaklines=true,basicstyle=\footnotesize,numbers=right, numberstyle=\tiny\color{gray}}
 
 
