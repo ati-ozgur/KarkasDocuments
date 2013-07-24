@@ -140,6 +140,40 @@ which field is used in dropdown. DisplayColumn'u foreign key'ın işaret ettiği
 public class RandomActor
 
 
+\subsection{UIHint User Interface Hint - Kullanıcı Arayüzü İpucu}
+
+Normalde scaffolding sırasında Edit işlemleri için Editor şablonları,
+görme işlemler için Display şablonları kullanılır.
+Scaffold edilen property'nin özelliğine göre standard şablonlar kullanılır.
+Eğer bu şablonları yerine kendi şablonlarımızı kullanmak istiyorsak,
+bunu UIHint attribute'ını kullanarak yapabiliriz.
+Silva \cite{Silva2010}'nın Avatar örneği güzel bir örnektir.
+Örneğin bir string property'miz var.
+
+\begin{lstlisting}[label=code-UIHintOrnek1,caption=UIHint Örnek1,language=C]
+	public string Avatar { get; set; }
+\end{lstlisting}
+
+Bu property bu hali ile scaffold edilirse, normal string şablonları kullanılacaktır.
+Ama biz biliyoruz bu Avatar özelliği internet üzerinde bi resime işaret ediyor.
+Bu durumda Display için kendi şablonumuz ekleyebilir.
+Bu şablon CodeTemplates/DisplayTemplates/Avatar.cshtml isminde bir dosya olmalıdır.
+Eğer editor şablonunuda değiştirmek istiyorsak,  CodeTemplates/EditorTemplates/ altına eklenmelidir
+
+
+\begin{lstlisting}[label=code-UIHintOrnek1,caption=UIHint Örnek1,language=C]
+	[UIHint("Avatar")]
+	public string Avatar { get; set; }
+\end{lstlisting}
+
+
+\begin{lstlisting}[label=code-UIHintOrnek cshtml,caption=UIHint cshtml,language=C]
+	<img src="@Model" />
+\end{lstlisting}
+
+Bu şablon sayesinde Avatar özelliği gösterilirken resim olarak sunulacaktır.
+
+
 
 \bibliographystyle{plain}
 
