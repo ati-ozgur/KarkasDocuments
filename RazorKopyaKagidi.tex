@@ -254,6 +254,27 @@ Yer tutucu Layout içerisinde optional anahtar kelimesi ile opsiyonel olarak tan
 
 \end{lstlisting}
 
+
+\subsection{Eposta adresi}
+
+Razor normal yazımlarda eposta adresini anlayabiliyor. 
+Ayrıca @ işaretinden kaçmamız gerekmiyor.
+\begin{lstlisting}[label=code-EmailExample,caption=EPosta Örnek ]
+EPosta Adresi
+ati.ozgur@ornek.com
+\end{lstlisting}
+
+\subsection{Explicit Expression - Belirgin İfade }
+Bazı durumlarda, kod listesi \ref{code-ExplicitExpression} , 
+@ işareti ile çağrılacak değişkenin parentez içinde belirtilmesi gerekir.
+
+
+\begin{lstlisting}[label=code-ExplicitExpression,caption=Belirgin İfade  ]
+<span>ISBN@(isbnNumber)</span>
+\end{lstlisting}
+
+
+
 \bibliographystyle{plain}
 
 
