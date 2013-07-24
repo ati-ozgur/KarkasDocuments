@@ -18,6 +18,7 @@
 \maketitle
 
 
+
 Referans listesinde görebileceğiniz \cite{Haack2011C},\cite{Haley2010Developer} kaynaklardan
 yararlanılarak yazılmıştır.
 
@@ -43,6 +44,7 @@ html içeriği ile çok karışmaması daha uygundur.
 
 
 
+
 \subsection{Html İçinde Kod Örnekleri}
 
 
@@ -59,15 +61,20 @@ Bundan dolayı kod listesi \ref{code-ExampleOfInlineExpression1} aşağıdaki ko
 
 
 \begin{lstlisting}[label=code-ExampleOfInlineExpression3,caption=html içinde kod örneği 3]
-<script src="@Url.Content("~/Scripts/MSAjaxHistoryBundle.js")" type="text/javascript"></script>
+@model.Adi
 \end{lstlisting}
 
+Normal kod örnekleri html encode edilmektedir.
+Eğer html encode edilmeden çıktı alınması isteniyorsa @Html.Raw kullanılmalıdır.
+Bu tür bir ihtiyaç genellikle girdi sırasında html veya xml taglarına izin veriliyorsa ihtiyaçtır.
+Mesela Rich Editor (Zengin Editor) ile html yorumlarına izin verildiğini düşünelim.
+Bu durumda html içeriğin kod listesi \ref{code-ExampleOfInlineExpressionHtmlRaw}
+gibi verilmesi gerekmektedir
 
+\begin{lstlisting}[label=code-ExampleOfInlineExpressionHtmlRaw,caption=html içinde kod örneği html encode yapılmadan]
+@Html.Raw(@model.Yorum)
+\end{lstlisting}
 
-
-
-
-\section*{References}
 
 
 \bibliographystyle{plain}
