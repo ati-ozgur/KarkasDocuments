@@ -39,6 +39,10 @@ Eklenebilecek bu annotationlar aşağıdaki listede \cite{Litwin2012} görülebi
 
 \item  StringLength
 
+\item  Required
+
+\item ScaffoldColumn
+
 \item  MaxLength
 
 \item ForeignKey
@@ -50,7 +54,6 @@ Eklenebilecek bu annotationlar aşağıdaki listede \cite{Litwin2012} görülebi
 
 \item  ConcurrencyCheck
 
-\item  Required
 
 \item  Timestamp
 
@@ -74,6 +77,24 @@ annotationlar aşağıdaki gibidir.
 
 \item InverseProperty
 \end{itemize}
+
+
+
+
+\subsection{Key - Anahtar}
+Key annotation'u işaretlediği kolonun bir primary key olduğunu belirtir.
+Karkas tarafından otomatik olarak, veritabanı şema bilgisi kullanılarak eklenmektedir.
+
+
+\subsection{StringLength - Katar Uzunluğu}
+Bir string alanının ne kadar uzun olabileceğini belirten bir alandır.
+Karkas tarafından otomatik olarak, veritabanı şema bilgisi kullanılarak eklenmektedir.
+Bu özellik varchar, char gibi character bilgisi içeren kolonlara eklenmektedir.
+
+\subsection{Required - Zorunlu Alan}
+Bir özelliğin zorunlu olarak değer alıp almayacağını kontrol etmektedir.
+Karkas tarafından otomatik olarak, veritabanı şema bilgisi kullanılarak eklenmektedir.
+Zorunluluk veri tabanında not null verilen kolonlar için geçerlidir.
 
 
 
