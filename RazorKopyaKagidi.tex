@@ -103,11 +103,28 @@ Encode edilen ve edilmeyen string farkını daha iyi anlamak  için kod listesi 
 \subsection{Kod ve Sade Yazı}
 
 
-\begin{lstlisting}[label=code-TextAndMarkup,caption=Yazı ve Markup]
+\begin{lstlisting}[label=code-TextAndMarkup1,caption=Yazı ve Markup 1]
 if(yanlisMi) {
  <text>Deger Yanlis</text>
 }
 \end{lstlisting}
+
+\begin{lstlisting}[label=code-TextAndMarkup2,caption=Yazı ve Markup 2]
+@if(DateTime.Now.DayOfWeek == DayOfWeek.Sunday){
+    <p>Pazar haftanin en guzel gunu.</p>
+}\end{lstlisting}
+
+
+iki örnek arasındaki fark şudur. 
+Razor html ile c\# iç içe geçmesi için tasarlanmıştır.
+Bundan dolayı kod listesi \ref{code-TextAndMarkup2} içindeki p tagı ile html'e geçiş yapılmaktadır.
+Ama sade yazı yazmaya çalıştığımızda razor , normal yazımızı c\# kodu gibi algılamaktadır.
+Bundan dolayı text tagını kullanarak , yazı yazmak istediğimizi belirtiyoruz.
+Eğer html taglarından herhangi birini kullanırsak, text tagına ihtiyacımız kalmayacaktır.
+
+
+
+
 
 \subsection{Kod , Sade Yazı, Kod}
 
