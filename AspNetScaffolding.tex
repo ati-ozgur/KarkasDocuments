@@ -30,7 +30,7 @@ Bu annotationları bir kısmı System.ComponentModel.DataAnnotations namespace'�
 
 
 
-Eklenebilecek bu etiketler aşağıdaki listede \cite{Litwin2012} görülebilir.
+Eklenebilecek bu etiketler aşağıdaki listede \cite{Litwin2012AMV12:} görülebilir.
 
 
 
@@ -44,7 +44,6 @@ Eklenebilecek bu etiketler aşağıdaki listede \cite{Litwin2012} görülebilir.
 
 \item ScaffoldColumn
 
-\item  MaxLength
 
 \item ForeignKey
 
@@ -77,6 +76,10 @@ annotationlar aşağıdaki gibidir.
 \item Table
 
 \item InverseProperty
+
+\item  MaxLength
+
+
 \end{itemize}
 
 
@@ -146,7 +149,7 @@ görme işlemler için Display şablonları kullanılır.
 Scaffold edilen property'nin özelliğine göre standard şablonlar kullanılır.
 Eğer bu şablonları yerine kendi şablonlarımızı kullanmak istiyorsak,
 bunu UIHint attribute'ını kullanarak yapabiliriz.
-Silva \cite{Silva2010}'nın Avatar örneği güzel bir örnektir.
+Silva \cite{Silva2010Quick}'nın Avatar örneği güzel bir örnektir.
 Örneğin bir string property'miz var.
 
 \begin{lstlisting}[label=code-UIHintOrnek1,caption=UIHint Örnek1,language=C]
@@ -171,6 +174,21 @@ Eğer editor şablonunuda değiştirmek istiyorsak,  CodeTemplates/EditorTemplat
 \end{lstlisting}
 
 Bu şablon sayesinde Avatar özelliği gösterilirken resim olarak sunulacaktır.
+
+
+
+\section{Entity Framework Code First Annotations}
+
+Bazı annotation/attribute'lar Code First - İlk Önce Kod yaklaşımı ile
+kod yazıldığı zaman kullanılmaktadır.
+
+\subsection{MaxLength}
+Bu attribute EntityFramework tarafından veri tabanı oluşturulurken,
+database üzerinde kolonun maksimum boyutuna karar vermek için kullanılır.
+StringLength attribute'u validation onaylama için kullanılmaktadır.
+Bakınız \cite{StackOverflow2011StringLength}.
+
+
 
 
 
