@@ -96,8 +96,23 @@ Bir özelliğin zorunlu olarak değer alıp almayacağını kontrol etmektedir.
 Karkas tarafından otomatik olarak, veritabanı şema bilgisi kullanılarak eklenmektedir.
 Zorunluluk veri tabanında not null verilen kolonlar için geçerlidir.
 
+\subsection{ScaffoldColumn }
+İlgili özelliğin scaffold işlemine girip girmeyeceğini kontrol etmektedir.
+Karkas tarafından üretilen AsString property'lerinde kullanılır.
+Bunun haricinde eğer bir kolonun scaffold edilmesini istemiyorsanız,
+kod örneği \ref{code-ScaffoldColumn} gibi kullanabilirsiniz.
 
 
+
+
+\begin{lstlisting}[label=code-ScaffoldColumn,caption=ScaffoldColumn,language=C]
+		[ScaffoldColumn(false)]
+		public string RegionIdAsString
+\end{lstlisting}
+
+
+
+		
 
 
 \bibliographystyle{plain}
