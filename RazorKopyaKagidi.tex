@@ -176,13 +176,28 @@ if(yanlisMi) {
 \end{lstlisting}
 
 
-\section{Layout ve \_ViewStart Dosyaları}
+\subsection{Layout ve \_ViewStart Dosyaları}
 cshtml viewlarının master sayfalarının veya razor view deyimi ile layoutları
 view başındaki aşağıdaki gibi bir kod ile set edilir.
 
 
 
+\subsection{Global Namespace}
+Eğer viewların hepsinde kullanmak istediğimiz namespace'ler varsa bunları tüm view'lar için View dizini altındaki web.config
+içine ekleyebiliriz.
 
+\begin{lstlisting}[label=code-GlobalNamespace,caption=Global Namespace Ekleme]
+<pages>
+   <namespaces>
+      <add namespace="System.Web.Mvc" />
+      <add namespace="Karkas.WebExtensions" />
+\end{lstlisting}
+
+
+\subsection{View'a Namespace Ekleme}
+\begin{lstlisting}[label=code-ViewNamespace,caption=View Namespace Ekleme]
+@using Karkas.Deneme.Helpers
+\end{lstlisting}
 
 
 
