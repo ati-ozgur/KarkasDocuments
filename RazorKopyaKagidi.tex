@@ -134,7 +134,7 @@ Bugun  @bugun
 \subsection{Kod ve Sade Yazı}
 
 
-\begin{lstlisting}[label=code-TextAndMarkup1,caption=Yazı ve Markup 1]
+\begin{lstlisting}[label=code-TextAndMarkup1,caption=Yazı ve Markup 1 text tag]
 if(yanlisMi) {
  <text>Deger Yanlis</text>
 }
@@ -152,6 +152,16 @@ Bundan dolayı kod listesi \ref{code-TextAndMarkup2} içindeki p tagı ile html'
 Ama sade yazı yazmaya çalıştığımızda razor , normal yazımızı c\# kodu gibi algılamaktadır.
 Bundan dolayı text tagını kullanarak , yazı yazmak istediğimizi belirtiyoruz.
 Eğer html taglarından herhangi birini kullanırsak, text tagına ihtiyacımız kalmayacaktır.
+
+
+text tagına alternatif olarak @: ile sade yazı yazılabilir, bakınız kod listesi \ref{code-TextAndMarkup3}.
+Ben text tagının daha temiz ve anlaşılabilir olduğunu düşünüyorum.
+
+\begin{lstlisting}[label=code-TextAndMarkup3,caption=Yazı ve Markup 3 @:]
+if(yanlisMi) {
+  @:Deger Yanlis
+}
+\end{lstlisting}
 
 
 
