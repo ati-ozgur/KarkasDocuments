@@ -30,7 +30,7 @@ Bu annotationları bir kısmı System.ComponentModel.DataAnnotations namespace'�
 
 
 
-Eklenebilecek bu annotationlar aşağıdaki listede \cite{Litwin2012} görülebilir.
+Eklenebilecek bu etiketler aşağıdaki listede \cite{Litwin2012} görülebilir.
 
 
 
@@ -126,8 +126,19 @@ kod örneği \ref{code-ScaffoldColumn} gibi kullanabilirsiniz.
 \end{lstlisting}
 
 
+\subsection{[ForeignKey  }
+
+\todo{ForeignKey navigational member diye geçiyor. Buna iyi bir örnek bul}
 
 		
+Foreign key virtual properties create drop- downs on create/edit pages
+
+Add DisplayColumn to class to control
+which field is used in dropdown. DisplayColumn'u foreign key'ın işaret ettiği sınıfa ekliyor.
+
+[DisplayColumn("Name", "Name", false)]
+public class RandomActor
+
 
 
 \bibliographystyle{plain}
