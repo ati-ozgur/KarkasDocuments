@@ -180,6 +180,13 @@ if(yanlisMi) {
 cshtml viewlarının master sayfalarının veya razor view deyimi ile layoutları
 view başındaki aşağıdaki gibi bir kod ile set edilir.
 
+\begin{lstlisting}[label=code-Layout,caption=Layout - Düzenleme]
+@{
+	LayoutPage = "~/Views/Shared/_Layout.cshtml";
+}
+\end{lstlisting}
+
+
 
 
 \subsection{Global Namespace}
@@ -200,6 +207,40 @@ içine ekleyebiliriz.
 \end{lstlisting}
 
 
+
+\subsection{Content Placeholder - İçerik yertutucu }
+
+Bu yapıda layout içinde boş bırakılan yerler, view tarafından doldurulur.
+Örneğin layout içinde ana içeriğin geleceği yer @RenderSection veya @RenderBody
+ile belirtilir.
+View içerisinde view çıktısının bu boş bırakılan hangi yere geleceği yazılır.
+Yer tutucu kodunun çalışması için hem layout içerisinde hemde view içerisinde tanımı olmalıdır.
+Yer tutucu Layout içerisinde optional anahtar kelimesi ile opsiyonel olarak tanımlanabilir.
+
+
+
+\begin{lstlisting}[label=code-ContentPlaceHolderLayout,caption=İçerik yertutucu - Layout ]
+
+<body>
+
+
+.....
+       @RenderSection("ScriptYerTutucu", optional:true)
+
+</body>
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[label=code-ContentPlaceHolderView,caption=İçerik yertutucu - View ]
+
+@section ScriptYerTutucu {
+
+	// Buraya o view icin gerekli javascript kodu yazilabilir.
+	
+}
+
+\end{lstlisting}
 
 \bibliographystyle{plain}
 
