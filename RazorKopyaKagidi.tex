@@ -68,12 +68,26 @@ Normal kod örnekleri html encode edilmektedir.
 Eğer html encode edilmeden çıktı alınması isteniyorsa @Html.Raw kullanılmalıdır.
 Bu tür bir ihtiyaç genellikle girdi sırasında html veya xml taglarına izin veriliyorsa ihtiyaçtır.
 Mesela Rich Editor (Zengin Editor) ile html yorumlarına izin verildiğini düşünelim.
-Bu durumda html içeriğin kod listesi \ref{code-ExampleOfInlineExpressionHtmlRaw}
+Bu durumda html içeriğin kod listesi \ref{code-ExampleOfInlineExpressionHtmlRaw1}
 gibi verilmesi gerekmektedir
 
-\begin{lstlisting}[label=code-ExampleOfInlineExpressionHtmlRaw,caption=html içinde kod örneği html encode yapılmadan]
+\begin{lstlisting}[label=code-ExampleOfInlineExpressionHtmlRaw1,caption=html içinde kod örneği 1 html encode yapılmadan]
 @Html.Raw(@model.Yorum)
 \end{lstlisting}
+
+Encode edilen ve edilmeyen string farkını daha iyi anlamak  için kod listesi \ref{code-ExampleOfInlineExpressionHtmlRaw2} çalıştırıp sonucuna bakınız.
+
+\begin{lstlisting}[label=code-ExampleOfInlineExpressionHtmlRaw2,caption=html içinde kod örneği 2 html encode yapılmadan ]
+@{
+ String cikti = "<span>hi</span>";
+}
+@Html.Raw(cikti)
+@cikti
+
+
+\end{lstlisting}
+
+
 
 
 \subsection{Text \& Markup -- Yazı ve Markup}
@@ -105,6 +119,15 @@ if(yanlisMi) {
 
 <text>Bu tag ile yazi yaziliyor. Su an zaman @@zaman </text>
 \end{lstlisting}
+
+
+
+\section{Layout ve \_ViewStart Dosyaları}
+cshtml viewlarının master sayfalarının veya razor view deyimi ile layoutları
+view başındaki aşağıdaki gibi bir kod ile set edilir.
+
+
+
 
 
 
