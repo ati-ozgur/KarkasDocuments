@@ -112,6 +112,13 @@ Bir özelliğin zorunlu olarak değer alıp almayacağını kontrol etmektedir.
 Karkas tarafından otomatik olarak, veritabanı şema bilgisi kullanılarak eklenmektedir.
 Zorunluluk veri tabanında not null verilen kolonlar için geçerlidir.
 
+
+
+
+
+\section{Görsellik Değiştiren Özellikler}
+
+
 \subsection{ScaffoldColumn }
 İlgili özelliğin scaffold işlemine girip girmeyeceğini kontrol etmektedir.
 Karkas tarafından üretilen AsString property'lerinde kullanılır.
@@ -127,12 +134,24 @@ kod örneği \ref{code-ScaffoldColumn} gibi kullanabilirsiniz.
 \end{lstlisting}
 
 
+
+
 \subsection{ForeignKey  }
 
 \todo{ForeignKey navigational member diye geçiyor. Buna iyi bir örnek bul}
 
 		
 Foreign key virtual properties create drop- downs on create/edit pages
+
+
+\subsection{DisplayColumnAttribute}
+
+\todo{http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displaycolumnattribute.aspx}
+
+Sadece sınıfa eklenebiliyor. Sadece bir kere eklenebiliyor. 
+Bunun anlamı sadece tanım tabloları için anlamlı bir attribute, drop downlist doldururken kullanılacak.
+
+
 
 Add DisplayColumn to class to control
 which field is used in dropdown. DisplayColumn'u foreign key'ın işaret ettiği sınıfa ekliyor.
@@ -173,6 +192,13 @@ Eğer editor şablonunuda değiştirmek istiyorsak,  CodeTemplates/EditorTemplat
 \end{lstlisting}
 
 Bu şablon sayesinde Avatar özelliği gösterilirken resim olarak sunulacaktır.
+
+
+
+\section{Validation - Onaylama için kullanılanılabilecek Ek Attribute'lar}
+
+\subsection{UrlAttribute}
+
 
 
 
