@@ -380,13 +380,22 @@ Her kelimenin ilk harfi büyük yazılır.
 
 
 \subsection{İsimlendirme Konvansiyonu - Index}  
+
 \begin{itemize}
-\item IX\_TabloIsmiKolonIsmi 
-\item IX\_MusteriMusteriNo
-\item TipNo
-\item MusteriKey
+\item IX\_TabloIsmi_KolonIsimleri 
+\item IX\_Musteri_MusteriNo
+\item IX_Satislar_TipNo
+\item IX_Satislar_MusteriKey
+\item UQ_Musteri_VergiNo
+
 \end{itemize}  
+
 Her kelimenin ilk harfi büyük yazılır.
+Unique indexler UQ ile başlamalıdır.
+
+
+
+
 
 \subsection{İsimlendirme Konvansiyonu - Yabancı anahtar (Foreign key)}  
 \begin{itemize}
@@ -420,14 +429,24 @@ utrX + Tablo Ismi, yerine triggerin hangi işlem için olduğunu söyleyen bir k
 \end{itemize}  
 
   
+  
+\section{Düzenleme Geçmişi} 
 
-\begin{tabular}{|l|l|l|l|}
-\hline Revision & Yazarlar & Tarih & Yapılan Değişiklikler  \\ 
-\hline 0.1 &  Atilla Özgür & 2006 & İlk Yazım   \\ 
-\hline 0.2 &  Atilla Özgür & 2008 & Fatih ile İç İşlerinde yapılan değişiklik \\ 
-\hline 0.3 &  Atilla Özgür & 2013-02-13 & Çok uzun bir aradan sonra bazı düzeltmeler  \\ 
-\hline 0.4 &  Atilla Özgür & 2013-07-04 & Latex cevrimi, sectionlara ayırma , tümüyle tekrar yazıldı.  \\ 
-\hline 
-\end{tabular} 
+\begin{tabular}{@{}llll@{}}
+
+\toprule
+
+ Versiyon & Yazarlar & Tarih & Yapılan Değişiklikler  \\ 
+
+\midrule
+
+ 0.1 &  Atilla Özgür & 2006 & İlk Yazım   \\ 
+ 0.2 &  Atilla Özgür & 2008 & Fatih ile İç İşlerinde yapılan değişiklik \\ 
+ 0.3 &  Atilla Özgür & 2013-02-13 & Çok uzun bir aradan sonra bazı düzeltmeler  \\ 
+ 0.4 &  Atilla Özgür & 2013-07-04 & Latex cevrimi, sectionlara ayırma , tümüyle tekrar yazıldı.  \\ 
+ 0.5 &  Atilla Özgür & 2017-12-12 & İŞKUR eğitimden önce değişiklikler. latex booktabs'a geçiş.   \\ 
+\bottomrule
+\end{tabular}
+
 
 \end{document}
