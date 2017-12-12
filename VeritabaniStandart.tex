@@ -253,6 +253,7 @@ kod yazılması kolaylığı açısından değerlendirilmeli ve proje başlangı
 Uniqueidentifier eğer PK olarak kullanılıyorsa default değer olarak newid() olmalıdır.
 
 \subsubsection{Foreign Key}
+
 Eğer bir tablo içindeki kolon başka bir tabloya referans veriyorsa 
 kesinlikle foreign key tanımlanmalı ve bu			kolonun ismi TabloIsmiTipNo yada 
 TabloIsmiKey olarak tanımlanmalı. TipNo tanım tabloları için. Key ise normal 
@@ -264,6 +265,7 @@ TipNo(...) okunduğu zaman bir tanım tablosuna referans düşünülürken, Key 
 
 
 \subsubsection{Yazı Değerler}
+
 Yazi degerleri eger değişken ise varchar ile, eğer sabit bir değer ise char olarak tutulmalıdır. Örneğin:
 
 \begin{itemize}
@@ -274,16 +276,20 @@ Yazi degerleri eger değişken ise varchar ile, eğer sabit bir değer ise char 
 Eğer veri tabanında kullanılan genel dilden (türkçe olmayan) farklı değer girilebilir ise nchar,nvarchar tanımlanmalıdır.
 
 \subsubsection{Sayı Değerler}
+
 Sayı değerleri için alabilecekleri aralıkları düşünerek tiny int, short int , int veya big int kullanınız. 
 
 \begin{itemize}
+
 \item   Tablodaki değer  -32,768 - 32,767   smallint veri yapısını kullanın.
 \item   eğer tamsayı değer  -2,147,483,648 - 2,147,483,647 arası ise int veri yapısını kullanın.
+
 \end{itemize} 
 
 \subsubsection{Para ve Ondalık Değerler}
 
 \begin{itemize}
+
 \item  Money SQL standartında olmadığından kullanılmamalıdır. 
 \item  Float ve double tam değerler değildir, yaklaşık değer olarak çalışırlar. 
 Para hesaplarında kesinlikle kullanılmamaları gerekir.
@@ -293,6 +299,7 @@ Para hesaplarında kesinlikle kullanılmamaları gerekir.
 \end{itemize} 
  			
 \subsubsection{Tarih Değerler}
+
 Tarih değerleri 	datetime (3.33 milliseconds accuracy)  	Jan 1, 1753  --- Dec 31, 9999
 ,smalldatetime (1 minute accuracy) 	Jan 1, 1900  --- Jun 6, 2079		
 değerleri arasını göstermektedir. 
@@ -311,8 +318,8 @@ Yukarıdakı kısıtlama giris senesinin 1900 ile şu an bulunduğumuz sene aras
 
 
 \subsubsection{Resim Dosya gibi Binary Değerler}
-Resim veya binary data tutmak için varbinary(max) tercih edin. image 
-veri tipi SQL Server'ın yeni versiyonlarında kullanılmayacaktır.
+Resim veya binary data tutmak için varbinary(max) tercih edin. 
+Veri tipi image SQL Server'ın yeni versiyonlarında kullanılmayacaktır.
  
 \subsubsection{Diger Notlar}
 
