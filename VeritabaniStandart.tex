@@ -22,28 +22,29 @@ Nchar unicode olarak değerleri tuttuğu için 2 katı yer kaplamakta
 ve daha yavaş çalışmaktadır. 
 Eğer veritabanında aynı anda iki dil bilgisi tutulmayacaksa, 
 yani hem rusça hemde türkçe bilgi,
-yazi değerleri veri tabanında  varchar yada char olarak tutulmalıdır.
+yazı değerleri veri tabanında  varchar yada char olarak tutulmalıdır.
 
 
-\section{Şema Kavramı}
+\section{Şema (Schema) Kavramı}
 
 
-SQL Server schema kavramını en iyi şekilde uygulayan veri tabanları arasındadır.
-Bu yüzden schema yapısının SQL server veritabanı tasarımı yapılırken kullanılması tavsiye edilir.
-Bu yapıda her ana modul için bir ana şema, bir tanım tablosu şeması açılması tavsiye edilmektedir.
+SQL Server şema (schema) kavramını en iyi şekilde uygulayan veri tabanları arasındadır.
+Bu yüzden schema yapısının SQL server veri tabanı tasarımı yapılırken kullanılması tavsiye edilir.
+Bu yapıda her ana modul için, "bir ana şema" + "bir tanım tablosu şema"'sı açılması tavsiye edilmektedir.
 Referential  Integrity korunması açısından bütün uygulama tek bir veritabanında çalışmalıdır.
 
 Örneğin ihtiyaç duyduğunuz modullerin Insan Kaynakları, Muhasebe ve Bordro olduğunu düşünelim. 
 Bu yapıda aşağıdaki şemaların açılması uygun olacaktır.
+
 \begin{itemize}
+\item ORTAK
+\item TT\_ORTAK
 \item MUHASEBE
 \item TT\_MUHASEBE
 \item INSAN\_KAYNAKLARI
 \item TT\_INSAN\_KAYNAKLARI
 \item BORDRO
 \item TT\_BORDRO
-\item ORTAK
-\item TT\_ORTAK
 \item OZLUK\_BILGILERI
 \item TT\_OZLUK\_BILGILERI
 \item FIRMALAR
@@ -53,29 +54,28 @@ Bu yapıda aşağıdaki şemaların açılması uygun olacaktır.
 
 
 Burada muhasebe, insan kaynakları ve bordro şemaları zaten ihtiyaç duyulan şemalardır.
-Bunlara ek olarak kişi bilgilerinin tutulması için ad, soyad, kimlik bilgileri etc ORTAK şeması
-önerilmektedir. TT\_ORTAK şeması buradaki bilgiler için gerekli tanım tablolarını tutacaktır.
+Bunlara ek olarak kişi bilgilerinin tutulması için ad, soyad, kimlik bilgileri etc ORTAK şeması önerilmektedir. 
+TT\_ORTAK şeması buradaki bilgiler için gerekli tanım tablolarını tutacaktır.
 Örneğin TT\_ORTAK.CINSIYET ismindeki bir tanım tablosu cinsiyet bilgileri tutabilir.
 Burada Kisi için tutulacak bilgiler herkes için kesin tutulması gereken bilgilerdir. 
-Örneğin ad soyad, tc kimlik no resim gibi. Ama eger sadece yazılımı kullanan kurumdaki,
-kişilere ait  (örneğin kurum sicil no, kurum eposta, kurum telefon) gibi bilgiler  var ise 
-bunların farklı şemada tutulması daha yararlı olacaktır. 
+Örneğin ad soyad, tc kimlik no, resim gibi. 
+Ama eger sadece yazılımı kullanan kurumdaki,
+kişilere ait  (örneğin kurum sicil no, kurum eposta, kurum telefon) gibi bilgiler  var ise  bunların farklı şemada tutulması daha yararlı olacaktır. 
 
 Buraya FIRMALAR şeması muhasebe firmalarının fatura kesecekleri firma bilgileri için eklenmiştir.
-Firma, Kisi bilgileri bir çok modul tarafından ihtiyaç duyulan bilgiler oldukları için bunların
-ayrı şemalarda tutulmaları daha yararlı olacaktır.
+Firma, Kisi bilgileri bir çok modul tarafından ihtiyaç duyulan bilgiler oldukları için bunların ayrı şemalarda tutulmaları daha yararlı olacaktır.
 
 Son olarak Ozluk bilgileri, Bordro ve insan kaynaklarının ihtiyaç duydukları ortak bilgileri taşıyacaktır.
-Burada bu bilgiler sadece insan kaynakları şeması yada bordro şeması yerine ikisinin ortak kullandığı
-bir şemada olması daha uygundur.
-Yani diğer bir deyişle; eğer bir tablo birden fazla modul tarafından kullanılıyor ise,
-bu ortaklığı belirtecek yeni bir şema gerekirse açılmalıdır. 
-Bu şema ismi eğer dışarıdan veri alınıyorsa bunu anlatan bir isim,
-eğer 2 modulün ortak noktası ise, bu ortak nokta olabilir.
+Burada bu bilgiler sadece insan kaynakları şeması yada bordro şeması yerine ikisinin ortak kullandığı bir şemada olması daha uygundur.
+Yani diğer bir deyişle; eğer bir tablo birden fazla modul tarafından kullanılıyor ise, bu ortaklığı belirtecek yeni bir şema gerekirse açılmalıdır. 
+Bu şema ismi eğer dışarıdan veri alınıyorsa bunu anlatan bir isim, eğer 2 modulün ortak noktası ise, bu ortak nokta olabilir.
 Sadece 2 modul tarafından kullanılacak bir tablo ORTAK şemasını eklenmemelidir.
 
 Ana modul şemalarından 10 taneden fazla tablo bulunması bu modulun buyuk olduğunu göstermektedir.
-Bu modul 2-3 ana modul olarak ayrılabilir. Örneğin personel için aşağıdaki gibi bir ayrım olabilir.
+Bu modul 2-3 ana modul olarak ayrılabilir. 
+Örneğin personel için aşağıdaki gibi bir ayrım olabilir.
+
+
 \begin{itemize}
 \item PERSONEL
 \item PERSONEL\_IZIN
@@ -83,10 +83,13 @@ Bu modul 2-3 ana modul olarak ayrılabilir. Örneğin personel için aşağıdak
 \end{itemize}
 
 
-Ayrıca gecici daha sonra silinebilecek tabloların tutulması için GECICI veya TEMP isminde bir şemada
-eklenmesi uygun olacaktır.
+Ayrıca gecici daha sonra silinebilecek tabloların tutulması için GECICI veya TEMP isminde bir şemada eklenmesi uygun olacaktır.
+Aynı şekilde kısa süreli yedek işlemleri için, karışık bir güncelleme öncesinde ihtiyaç duyulabilecek yedek işlemleri için YEDEK şeması eklenebilir.
+
+
 
 Her modul relationları, ilişkileri gösteren diagramlara sahip olmalıdır.
+
 \missingfigure{Örnek diagram ekle}
 
 
@@ -94,8 +97,7 @@ Her modul relationları, ilişkileri gösteren diagramlara sahip olmalıdır.
 \subsection{Şema, Tablo, Kolon İsimlendirme}
 
 Şema ismi olarak kullandığınız isimleri tablo isimleri olarak kullanmayın. 
-Yani eğer BORDRO diye bir şemanız varsa,	bu şema icinde veya 
-diğer şemaların içinde BORDRO diye bir tablonuz olmamalıdır.
+Yani eğer BORDRO diye bir şemanız varsa, bu şema icinde veya diğer şemaların içinde BORDRO diye bir tablonuz olmamalıdır.
 
 VS.NET içinde proje ismi olarak kullanacağınız bir ismi şema ismi  olarak kullanmayınız.
 Yada şema isimlerinizi, VS.NET içinde	proje ismi  olarak vermeyin.
@@ -105,6 +107,7 @@ Derleyici (Compiler)  için sorunlar çıkarabiliyor.
 Veritabanındaki Tablo ve Şema isimleri tüm harfler büyük, Kelimeler arasında ise \_ olacak şekilde seçilmelidir.
 
 \begin{itemize}
+
 \item INSAN\_KAYNAKLARI.ILAC\_ALIMI\_ALINAN\_ILACLAR		 
 \item ORTAK.KISI\_EK\_BILGILER		 
 \item MUHASEBE.FIS		 
@@ -114,8 +117,7 @@ Veritabanındaki Tablo ve Şema isimleri tüm harfler büyük, Kelimeler arasın
 
 
 \subsubsection{Kolon İsimlendirme}
-Kolon isimleri verilirken .NET isimlendir konvansiyonuna uygun olarak her kelime buyuk harf ile baslamalı,
-diğer harfler kucuk harf olmalıdır.
+Kolon isimleri verilirken .NET isimlendirme konvansiyonuna uygun olarak her kelime buyuk harf ile baslamalı, diğer harfler kucuk harf olmalıdır.
 Kolon isimleri kullanılırken türkçe karakterler (İ,Ü,ı ..) kullanılmamalıdır.
 Bakınız aşağıdaki örnekler.
 
@@ -134,14 +136,20 @@ Bu sayede veritabanından otomatik rapor çıkaran araçların raporları daha a
   
   
 \subsubsection{Kolon İsimlendirme - Primary Key}
-Primary key - Birincil anahtar isimlerinin nasıl olması gerektiğine proje başında karar verilmeli ve bu isimler
-proje boyunca uyulmalıdır.
+
+Primary key - Birincil anahtar isimlerinin nasıl olması gerektiğine proje başında karar verilmeli ve bu isimlendirmeye proje boyunca uyulmalıdır.
 Buna göre birincil anahtar için aşağıdaki kelimelerden biri seçilmelidir.
+
 \begin{enumerate}
 \item Key
 \item ID
 \item Id
 \end{enumerate}
+
+Bazı projelerde KayitNo kullanılmaktadır.
+Bu kelime uzun olduğu için bana göre yukarıdakiler daha iyi seçimlerdir.
+
+
 Key anahtar, Id Identity (kimlik) kelimelerinin kısaltmasıdır.
 Projede bunlardan sadece birinin kullanılması daha uygun olacaktır.
 Aynı şekilde ID ve Id olarak karar verilmeli ve hep aynı şekilde kullanılmalıdır.
@@ -149,7 +157,7 @@ Aynı şekilde ID ve Id olarak karar verilmeli ve hep aynı şekilde kullanılma
 Aşağıdaki örneklerde Key kelimesinin seçilmiştir.
 
 Birincil Anahtarları TABLO ADI + Key olarak verilmesi tavsiye edilmektedir.
-Örneğin
+Örneğin:
 
 \begin{tabular}{|l|l|}
 \hline Tablo Adı & Primary Key Adı \\ 
@@ -161,8 +169,7 @@ Birincil Anahtarları TABLO ADI + Key olarak verilmesi tavsiye edilmektedir.
 \end{tabular} 
 
 
-Eğer tanım tablolarının primary key'ı seçiliyor ise TabloIsmi + (No,Turu,TurNo,Tipi,TipNo)
-gibi kolon isminden sonra türkçe okunmaya uygun bir ek kullanılmalıdır.
+Eğer tanım tablolarının primary key'ı seçiliyor ise TabloIsmi + (No, Turu, TurNo, Tipi, TipNo) gibi kolon isminden sonra türkçe okunmaya uygun bir ek kullanılmalıdır.
 
 Örneğin
 
@@ -181,7 +188,7 @@ gibi kolon isminden sonra türkçe okunmaya uygun bir ek kullanılmalıdır.
 Kolonlarda ikincil anahtar isimleri verilirken dikkat edilmesi gereken kural,
 referans edilen tablonun bir tanım tablosumu yoksa bir ana tablomu olduğu kuralıdır.
 Eğer bir ana tabloya referans veriliyorsa TabloIsmi + Key kullanılmalıdır.
-Eğer bir tanım tablosuna referans veriliyorsa TabloIsmi + (No,Turu,TurNo,Tipi,TipNo)
+Eğer bir tanım tablosuna referans veriliyorsa TabloIsmi + (No, Turu, TurNo, Tipi, TipNo)
 gibi kolon isminden sonra türkçe okunmaya uygun bir ek kullanılmalıdır.
 Bu sayede bir tablo incelenirken hangi tablolara referans verdiği daha rahat bir
 sekilde anlaşılacaktır. 
@@ -226,7 +233,9 @@ CEVAP\_ISTEK ve GELIS\_YOLU isminde tablolar olduğunu biliyoruz.
 
 
 \subsection{Kolon Veri Yapıları}
+
 \subsubsection{Primary Key}
+
 Birincil anahtar (Primary Key) konulmayan tablo olmayacaktır.
 Primary key değerleri olarak uniqueidentifier veya Identity seçilmeli proje boyunca benzer bir yapı kullanılmalıdır.
 Primary key Sentetik Anahtar (Surrogate Key) olarak int IDENTITY değerleri yerine uniqueidentifier tercih edilmesi,
@@ -240,9 +249,7 @@ TabloIsmiKey olarak tanımlanmalı. TipNo tanım tabloları için. Key ise norma
 tablolar			için kullanılmalıdır.	
 TipNo yerine referans verilen tanımın türkçesine göre TurNo
 gibi diğer kelimelerde kullanılabilir.
-Eğer bir kolon ismi TurNo,TipNo,Turu,Tipi,RenkNo,BilgiNo
-gibi bir kelime ile bitiyorsa ise çok büyük ihtimal ile
-Tanım Tablolarına referans veriyordur.
+Eğer bir kolon ismi TurNo, TipNo, Turu, Tipi, RenkNo, BilgiNo gibi bir kelime ile bitiyorsa ise çok büyük ihtimal ile Tanım Tablolarına referans veriliyordur.
 TipNo(...) okunduğu zaman bir tanım tablosuna referans düşünülürken, Key ise   1..* veya 1..1 ilişkisini tanımlamalıdır.		 
 
 
