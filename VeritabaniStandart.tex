@@ -5,7 +5,7 @@
 \newcommand{\titleName}{Karkas SQL Server Veri tabanı Standartları}
 
 \input{latexAndBibliography/usePackageAndDefinitions}
-
+\usepackage{booktabs}
 
 \begin{document}
 
@@ -159,28 +159,38 @@ Aşağıdaki örneklerde Key kelimesinin seçilmiştir.
 Birincil Anahtarları TABLO ADI + Key olarak verilmesi tavsiye edilmektedir.
 Örneğin:
 
-\begin{tabular}{|l|l|}
-\hline Tablo Adı & Primary Key Adı \\ 
-\hline ORTAK.KISI & KisiKey \\ 
-\hline MUHASEBE.FIS & FisKey \\ 
-\hline BORDRO.ILAC\_ALIMI\_ALINAN\_ILACLAR & IlacAlimiAlinanIlaclarKey \\ 
-\hline ORTAK.KISI\_EK\_BILGILER & KisiEkBilgilerKey \\ 
-\hline 
+\begin{tabular}{@{}ll@{}}
+
+\toprule
+
+Tablo Adı & Primary Key Adı \\ 
+\midrule
+ORTAK.KISI & KisiKey \\ 
+MUHASEBE.FIS & FisKey \\ 
+BORDRO.ILAC\_ALIMI\_ALINAN\_ILACLAR & IlacAlimiAlinanIlaclarKey \\ 
+ORTAK.KISI\_EK\_BILGILER & KisiEkBilgilerKey \\ 
+\bottomrule
 \end{tabular} 
 
 
-Eğer tanım tablolarının primary key'ı seçiliyor ise TabloIsmi + (No, Turu, TurNo, Tipi, TipNo) gibi kolon isminden sonra türkçe okunmaya uygun bir ek kullanılmalıdır.
+Eğer tanım tablolarının primary key'ı seçiliyor ise TabloIsmi + (No, Turu, TurNo, Tipi, TipNo) gibi kolon isminden sonra türkçe okunmaya uygun bir ek kullanılmalıdır. Örneğin:
 
-Örneğin
 
-\begin{tabular}{|l|l|}
-\hline Tablo Adı & Primary Key Adı \\ 
-\hline TT\_ORTAK.Cinsiyet & CinsiyetTipNo \\ 
-\hline TT\_ORTAK.SEHIR & SehirNo  \\ 
-\hline TT\_OZGECMIS.EGITIM\_TIP & EgitimTipNo \\ 
-\hline TT\_OZGECMIS.YABANCI\_DIL\_SINAV\_TUR & YabanciDilSinavTurNo \\ 
-\hline 
-\end{tabular} 
+\begin{tabular}{@{}ll@{}}
+
+\toprule
+
+Tablo Adı & Primary Key Adı \\ 
+
+\midrule
+
+TT\_ORTAK.Cinsiyet & CinsiyetTipNo \\ 
+TT\_ORTAK.SEHIR & SehirNo  \\ 
+TT\_OZGECMIS.EGITIM\_TIP & EgitimTipNo \\ 
+TT\_OZGECMIS.YABANCI\_DIL\_SINAV\_TUR & YabanciDilSinavTurNo \\ 
+\bottomrule
+\end{tabular}
+
 
 
 \subsubsection{Kolon İsimlendirme - Foreign Key}
